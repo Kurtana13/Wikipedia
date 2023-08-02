@@ -1,0 +1,16 @@
+﻿@model User
+
+<form method="post">
+    <div class ="border p-2 ">
+        <p>
+            <div class="mb-3">
+                <label asp-for="Name" ></label>
+                <input asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger" ></span>
+            </div>
+        </p>
+        <p>
+            <button type="submit" >Create User</button>
+        </p>
+    </div>
+</form>
