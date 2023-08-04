@@ -4,6 +4,11 @@
     <div class="border p-2 ">
         <p>
             <div class="mb-3">
+                <label asp-for="UserId"></label>
+                <input asp-for="UserId" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
                 <label asp-for="Title"></label>
                 <input asp-for="Title" />
                 <span asp-validation-for="Title" class="text-danger"></span>
@@ -17,5 +22,6 @@
         <p>
             <button type="submit">Create User</button>
         </p>
+        <div class="text-danger" asp-validation-summary="All"></div>
     </div>
 </form>

@@ -10,8 +10,8 @@ namespace Wikipedia.Models
         }
 
         public List<Article> Articles { get; set; }
-        public Comment Comment { get; set; } = null;
+        public Comment? Comment { get; set; }
         [HiddenInput]
-        public Article Article { get; set; } = null;
+        public Article? Article { get; set; }
     }
 }

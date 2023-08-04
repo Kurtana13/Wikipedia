@@ -14,7 +14,8 @@ namespace Wikipedia.Controllers
         [HttpGet]
         public ViewResult Index()
         {
-            return View(_db.Article.ToList());
+            var article = new ArticleCommentViewModel(_db.Article.ToList());
+            return View(article);
         }
 
         [HttpPost]
@@ -36,18 +37,26 @@ namespace Wikipedia.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var articleComment = new ArticleCommentViewModel(_db.Article.ToList());
-
-            return View(articleComment);
+            return View();
         }
         [HttpPost]
         public ActionResult Create(Article article)
         {
+
             if(ModelState.IsValid)
             {
-                _db.Article.Add(article);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                User? user = _db.User.Find(article.UserId);
+                if (user != null)
+                {
+                    article.User = user;
+                    _db.Article.Add(article);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "User doesn't exists!");
+                }
             }
             return View();
         }
