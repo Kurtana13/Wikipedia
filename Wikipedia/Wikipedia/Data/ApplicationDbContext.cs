@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Wikipedia.Models;
 
+
 namespace Wikipedia.Data
 {
     public class ApplicationDbContext : DbContext
@@ -12,5 +13,12 @@ namespace Wikipedia.Data
         public DbSet<Article> Article { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<User>User { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies(); // Enable lazy loading
+            base.OnConfiguring(optionsBuilder);
+        }
+
     }
 }

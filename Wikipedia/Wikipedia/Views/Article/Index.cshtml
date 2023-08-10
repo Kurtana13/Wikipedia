@@ -15,7 +15,7 @@
             <h4>@article.Title</h4>
             <p>@article.Content</p>
             <h6>Add Comment</h6>
-            <form method="post" asp-action="">
+            <form method="post" asp-controller="Article" asp-action="Index">
                 <div class="border p-2 ">
                     <p>
                         <div class="mb-3">
@@ -28,7 +28,7 @@
                             <input asp-for="Comment.Content" />
                             <span asp-validation-for="Comment.Content" class="text-danger"></span>
                         </div>
-                        <input type="hidden" asp-for="Article" value="@article">
+                        <input type="hidden" name="articleId" value="@article.Id">
                     </p>
                     <p>
                         <button type="submit" class="btn btn-primary btn-sm">Add Comment</button>
@@ -45,8 +45,8 @@
                     foreach (var comments in article.Comments)
                     {
                         if (comments == null) break;
-                        <p>@comments.User</p>
-                        <p>@comments</p>
+                        <p class="text-dark">@comments.User.Name</p>
+                        <p>@comments.Content</p>
                     }
                 }
             </div>

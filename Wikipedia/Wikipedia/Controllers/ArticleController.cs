@@ -19,16 +19,14 @@ namespace Wikipedia.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Comment comment, Article article)
+        public ActionResult Index(Comment comment, int articleId)
         {
             if (ModelState.IsValid)
             {
-                Comment validComment = comment;
-                validComment.Article = article;
-                validComment.User = article.User;
-                var validArticle = _db.Article.Find(article.Id);
-                validArticle.Comments.Add(validComment);
-                _db.Comment.Add(validComment);
+                Article? article = _db.Article.Find(articleId);
+                comment.User = article.User;
+                article.Comments.Add(comment);
+                _db.Comment.Add(comment);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }

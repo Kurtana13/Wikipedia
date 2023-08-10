@@ -8,7 +8,7 @@ namespace Wikipedia.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter your name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
 
         public virtual List<Article>? articles { get; set; }
