@@ -11,6 +11,7 @@ namespace Wikipedia.Models
         public string? Title { get; set; }
         public string? Content { get; set; }
 
+        [Display(Name = "User ID")]
         [Required(ErrorMessage = "Please enter user ID!")]
         public int UserId { get; set; }
         public virtual User? User { get; set; }

@@ -11,11 +11,13 @@ namespace Wikipedia.Models
         public string? Content { get; set; }
 
         //Article
+        [Display(Name = "User ID")]
         public int ArticleId { get; set; }
         [ForeignKey("ArticleId")]
         public virtual Article? Article { get; set; }
 
         //User
+        [Display(Name = "User ID")]
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User? User { get; set; }

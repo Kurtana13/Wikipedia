@@ -3,53 +3,84 @@
 
 <h1>Main Posts</h1>
 <a asp-controller="Article" asp-action="Create" class="btn btn-primary">Add Article</a>
-@foreach(var article in Model.Articles)
-{
-    @if(article == null)
+<div class="border border-3 p-2 m-2">
+    @foreach(var article in Model.Articles)
     {
-        break;
-    }
-    else
-    {
-        <div class="border border-3 p-2 m-2">
-            <h4>@article.Title</h4>
-            <p>@article.Content</p>
-            <h6>Add Comment</h6>
-            <form method="post" asp-controller="Article" asp-action="Index">
-                <div class="border p-2 ">
-                    <p>
-                        <div class="mb-3">
-                            <label asp-for="Comment.UserId"></label>
-                            <input asp-for="Comment.UserId" />
-                            <span asp-validation-for="Comment.UserId" class="text-danger"></span>
+        @if(article == null)
+        {
+            break;
+        }
+        else
+        {
+            <div class="d-inline-block card text-white bg-primary mb-3" style="width: 24%;">
+                <div class="card-header">by @article.User.Name</div>
+                <div class="card-body">
+                    <h4 class="card-title">@article.Title</h4>
+                    <p class="card-text">@article.Content</p>
+                    <div class="accordion-item pt-3">
+                        <h2 class="accordion-header" id="headingOne_@article.Id">
+                            <button class="accordion-button dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne_@article.Id" aria-expanded="true" aria-controls="collapseOne_@article.Id">
+                                Add Comment 
+                            </button>
+                        </h2>
+                        <div id="collapseOne_@article.Id" class="position-absolute bg-dark z-2 accordion-collapse collapse" aria-labelledby="headingOne_@article.Id" data-bs-parent="#accordionExample" style="">
+                            <div class="accordion-body">
+                                <form method="post" asp-controller="Article" asp-action="Index">
+                                    <div class="border p-2 ">
+                                        <p>
+                                            <div class="mb-3">
+                                                <label asp-for="Comment.UserId"></label>
+                                                <input class="float-rig" asp-for="Comment.UserId" />
+                                                <span asp-validation-for="Comment.UserId" class="text-danger"></span>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="Comment.Content"></label>
+                                                <input asp-for="Comment.Content" />
+                                                <span asp-validation-for="Comment.Content" class="text-danger"></span>
+                                            </div>
+                                            <input type="hidden" name="articleId" value="@article.Id">
+                                        </p>
+                                        <p>
+                                            <button type="submit" class="btn btn-secondary btn-sm">Add Comment</button>
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label asp-for="Comment.Content"></label>
-                            <input asp-for="Comment.Content" />
-                            <span asp-validation-for="Comment.Content" class="text-danger"></span>
+                    </div>
+                    <div class="accordion-item pt-3">
+                        <h2 class="accordion-header" id="headingTwo_@article.Id">
+                            <button class="accordion-button dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo_@article.Id" aria-expanded="true" aria-controls="collapseTwo_@article.Id">
+                                See Comments
+                            </button>
+                        </h2>
+                        <div id="collapseTwo_@article.Id" class="w-100 position-absolute bg-dark z-2 accordion-collapse collapse" aria-labelledby="headingTwo_@article.Id" data-bs-parent="#accordionExample" style="">
+                            <div class="accordion-body">
+                                @if (article.Comments == null)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    foreach (var comments in article.Comments)
+                                    {
+                                        <hr class="hr" />
+                                        if (comments == null) break;
+                                        <figure>
+                                            <blockquote class="blockquote fs-5">
+                                                <p class="p-2">@comments.Content</p
+                                            </blockquote>
+                                            <figcaption class="blockquote-footer">
+                                                by <cite title="Source Title">@comments.User.Name</cite>
+                                            </figcaption>
+                                        </figure>
+                                    }
+                                }
+                            </div>
                         </div>
-                        <input type="hidden" name="articleId" value="@article.Id">
-                    </p>
-                    <p>
-                        <button type="submit" class="btn btn-primary btn-sm">Add Comment</button>
-                    </p>
+                    </div>
                 </div>
-            </form>
-            <div class="border border-1 p-1 m-1">
-                @if (article.Comments == null)
-                {
-                    continue;
-                }
-                else
-                {
-                    foreach (var comments in article.Comments)
-                    {
-                        if (comments == null) break;
-                        <p class="text-dark">@comments.User.Name</p>
-                        <p>@comments.Content</p>
-                    }
-                }
             </div>
-        </div>
+        }
     }
-}
+</div>

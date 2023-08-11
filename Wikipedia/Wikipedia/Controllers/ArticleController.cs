@@ -24,7 +24,7 @@ namespace Wikipedia.Controllers
             if (ModelState.IsValid)
             {
                 Article? article = _db.Article.Find(articleId);
-                comment.User = article.User;
+                comment.ArticleId = articleId;
                 article.Comments.Add(comment);
                 _db.Comment.Add(comment);
                 _db.SaveChanges();
