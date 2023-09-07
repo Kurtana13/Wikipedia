@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wikipedia.Models
 {
@@ -14,6 +15,7 @@ namespace Wikipedia.Models
         [Display(Name = "User ID")]
         [Required(ErrorMessage = "Please enter user ID!")]
         public int UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
 
 

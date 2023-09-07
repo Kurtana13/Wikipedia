@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Wikipedia.Data;
 using Wikipedia.Models;
@@ -7,14 +8,17 @@ namespace Wikipedia.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public HomeController(ApplicationDbContext db)
+        private UserManager<User> _userManager;
+
+        public HomeController(UserManager<User> userManager)
         {
-            _db = db;
+            _userManager = userManager;
         }
+
+        [HttpGet]
         public ViewResult Index()
         {
-            return View(_db.User.ToList());
+            return View(_userManager.Users);
         }
     }
 }

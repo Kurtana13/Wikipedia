@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Wikipedia.Models
 {
-    public class User
-    {
-        [Key]
-        public int Id { get; set; }
+    public class User : IdentityUser<int>
+    { 
 
         [Required(ErrorMessage = "Please enter your name")]
         public string? Name { get; set; }
