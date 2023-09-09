@@ -28,9 +28,9 @@ namespace Wikipedia.Controllers
                 article.Comments.Add(comment);
                 _db.Comment.Add(comment);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(new ArticleCommentViewModel(_db.Article.ToList()));
             }
-            return View();
+            return View(new ArticleCommentViewModel(_db.Article.ToList()));
         }
         [HttpGet]
         public ActionResult Create()

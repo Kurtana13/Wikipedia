@@ -8,7 +8,6 @@ namespace Wikipedia.Models
         {
             Articles = articles;
         }
-
         public List<Article>? Articles { get; set; }
         public Comment? Comment { get; set; }
         [HiddenInput]
