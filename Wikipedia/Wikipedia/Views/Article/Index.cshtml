@@ -4,7 +4,10 @@
 @inject UserManager<User> userManager;
 
 <h1>Main Posts</h1>
-<a asp-controller="Article" asp-action="Create" class="btn btn-primary">Add Article</a>
+@if (signInManager.IsSignedIn(User))
+{
+    <a asp-controller="Article" asp-action="Create" class="btn btn-primary">Add Article</a>
+}
 <div class="border border-3 p-2 m-2">
     @foreach(var article in Model.Articles)
     {
@@ -34,9 +37,7 @@
                                         <div class="border p-2 ">
                                             <p>
                                                 <div class="mb-3">
-                                                    @*<label asp-for="Comment.UserId"></label>*@
-                                                    <input type="hidden" class="float-rig" asp-for="Comment.UserId" value="@userManager.GetUserId(User)" />
-@*                                                    <span asp-validation-for="Comment.UserId" class="text-danger"></span>*@
+                                                    <input type="hidden" asp-for="Comment.UserId" value="@userManager.GetUserId(User)" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <label asp-for="Comment.Content"></label>

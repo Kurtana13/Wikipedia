@@ -1,13 +1,12 @@
 ﻿@model Article
+@inject UserManager<User> userManager;
 
 <form method="post">
     <div class="border p-2 ">
         <p>
-            <div class="mb-3">
-                <label asp-for="UserId"></label>
+@*            <div class="mb-3">
                 <input asp-for="UserId" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="mb-3">
                 <label asp-for="Title"></label>
                 <input asp-for="Title" />
@@ -19,6 +18,7 @@
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
         </p>
+        <input type="hidden" asp-for="UserId" value="@userManager.GetUserId(User)" />
         <p>
             <button type="submit">Create User</button>
         </p>
